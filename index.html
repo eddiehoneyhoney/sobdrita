@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sob drita</title>
+ <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/iconsbdr144x144.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/iconsbdr114x114.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/sondr72x72.png">
+     <link rel="apple-touch-icon-precomposed" href="../assets/ico/sdr48x48.png">
+      <link rel="shortcut icon" href="../assets/ico/sdr48x48.png">
+  
+   <link rel="manifest" href="/manifest.json">
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script type="text/javascript" src="Three.js"></script>
+<script type="text/javascript" src="requestAnimFrame.js"></script>
+<style>
+body { margin: 0; padding: 0; font-family: "Georgia", serif; color: #444; 
+    background-image: url('sob5.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;} 
+</style>
+
+<script type="text/javascript">
+
+window.onload = function() {
+
+  // Set up some variables and add a mousemove handler to the page
+  var mouseX = 0;                                               // Mouse X pos relative to window centre
+  var mouseY = 0;                                               // Mouse Y pos relative to window centre
+  var windowCentreX = window.innerWidth / 2;                    // Window centre (X pos)
+  var windowCentreY = window.innerHeight / 2;                   // Window centre (Y pos)
+  var WebGLSupported = isWebGLSupported();                      // Check for WebGL support
+
+  document.addEventListener( 'mousemove', function( event ) {
+
+    // Update mouseX and mouseY based on the new mouse X and Y positions
+    mouseX = ( event.clientX - windowCentreX );
+    mouseY = ( event.clientY - windowCentreY );
+  }, false );
+
+  // Create the renderer and add it to the page's body element
+  var renderer = WebGLSupported ? new THREE.WebGLRenderer() : new THREE.CanvasRenderer();
+  renderer.setSize( window.innerWidth, 600 );
+  document.body.appendChild( renderer.domElement );
+
+  // Create the scene to hold the object
+  var scene = new THREE.Scene();
+
+  // Create the camera
+  var camera = new THREE.Camera(
+      50,                       // Field of view
+      window.innerWidth / 600,  // Aspect ratio
+      .1,                       // Near plane distance
+      10000                     // Far plane distance
+  );
+
+  // Position the camera
+  camera.position.set( -15, 10, 15 );
+
+  // Add the lights
+
+  var light = new THREE.PointLight( 0xffffff, .4 );
+  light.position.set( 10, 10, 10 );
+  scene.addLight( light );
+
+  ambientLight = new THREE.AmbientLight( 0xbbbbbb );
+  scene.addLight( ambientLight );
+
+  // Create the materials
+
+  var materialClass = WebGLSupported ? THREE.MeshLambertMaterial : THREE.MeshBasicMaterial;
+  var lightGrey =  new materialClass( { color: 0xffffff, map: THREE.ImageUtils.loadTexture( 'mslemon11.png' ) } );
+  var bookCover = new materialClass( { color: 0xffffff, map: THREE.ImageUtils.loadTexture( 'sob1.jpg' ) } );
+  var bookSpine = new materialClass( { color: 0xffffff, map: THREE.ImageUtils.loadTexture( 'mousse3.jpg' ) } );
+  var bookPages = new materialClass( { color: 0xffffff, map: THREE.ImageUtils.loadTexture( 'mslemon7.png' ) } );
+  var bookPagesTopBottom = new materialClass( { color: 0xffffff, map: THREE.ImageUtils.loadTexture( 'mslemon1.png' ) } );
+     var bookPagesTop = new materialClass( { color: 0xffffff, map: THREE.ImageUtils.loadTexture( 'mslemon8.png' ) } );
+  
+
+  var materials = [
+    bookSpine,          // Left side
+    bookPages,          // Right side
+    bookPagesTopBottom, // Top side
+    bookPagesTopBottom, // Bottom side
+    bookCover,          // Front side
+    lightGrey,
+      bookPagesTop     // Back side
+  ];
+
+  // Create the book and add it to the scene
+  var book =  new THREE.Mesh( new THREE.CubeGeometry( 10, 10, 10, 10, 10, 10, materials ), new THREE.MeshFaceMaterial() );
+  scene.addChild( book );
+
+  // Begin the animation
+  animate();
+
+
+  /*
+    Animate a frame
+  */
+
+  function animate() {
+
+    // Rotate the book based on the current mouse position
+    book.rotation.y = mouseX * 0.005;
+    book.rotation.x = mouseY * 0.005;
+
+    // Render the frame
+    renderer.render( scene, camera );
+
+    // Keep the animation going
+    requestAnimFrame( animate );
+  }
+function render() {
+				group.rotation.y += ( targetRotation - group.rotation.y ) * 0.05;
+				renderer.render( scene, camera );
+		stats.update()
+
+}
+
+
+}
+
+/*
+  Check if the browser supports WebGL
+  Adapted from http://doesmybrowsersupportwebgl.com/
+*/
+
+function isWebGLSupported() {
+
+  var cvs = document.createElement('canvas');
+  var contextNames = ["webgl","experimental-webgl","moz-webgl","webkit-3d"];
+  var ctx;
+
+  if ( navigator.userAgent.indexOf("MSIE") >= 0 ) {
+    try {
+      ctx = WebGLHelper.CreateGLContext(cvs, 'canvas');
+    } catch(e) {}
+  } else {
+    for ( var i = 0; i < contextNames.length; i++ ) {
+      try {
+        ctx = cvs.getContext(contextNames[i]);
+        if ( ctx ) break;
+      } catch(e){}
+    }
+  }
+
+  if ( ctx ) return true;
+  return false;
+}
+
+</script>
+    <style>
+    .logo{
+             color:blue;
+             text-shadow: 0 1px 0 #ccc, 
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15); 
+         }
+    .logo1{
+             color:whitesmoke;
+             text-shadow: 0 1px 0 #ccc, 
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15); 
+         }
+         .logo2{
+             color:deepskyblue;
+          color: white;
+          text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15); 
+         }
+    
+    
+    </style>
+    
+    
+</head>
+
+<body>
+
+<div>
+  <div style="text-align:center;">
+    <h2 class="logo">Sobremesas D. Rita</h2>
+      
+      <p  class="logo1"> Suas festas de anivers&aacute;rio, almo&ccedil;os e jantares mais completas com Mousses e pudins deliciosos.<br> Sabores: abacaxi, maracuja e lim&atilde;o. Encomendas pelos telefones:<br> </p>
+     <p  class="logo1"> (85) 988460048 - (85) 996166230 - (85) 30350053 ou adicionar no <a href="whatsapp://send?abid=username&text=HeyThere!"><img width="48" height="48" src="whatsapp-logo-png.png" /></a></p><br>
+      <p  class="logo2">No momento s&oacute; aceitamos encomendas para Fortaleza, Maranguape e Maracana&uacute;.
+        </p>
+        <div style="text-align:center;">
+        <footer>made by R. Edward Gouveia</footer>
+    </div>
+    
+    </div>
+
+</body>
+
+</html>
+
