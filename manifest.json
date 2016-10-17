@@ -1,0 +1,24 @@
+{
+  "short_name": "Sobremesas D Rita",
+  "name": "Sobremesas D Rita",
+  "icons": [
+    {
+      "src": "/assets/ico/sondr72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/ico/iconsbdr114x114.png",
+      "sizes": "114x114",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/ico/iconsbdr144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "orientation": "landscape"
+}
